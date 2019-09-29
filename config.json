@@ -1,0 +1,35 @@
+{
+    "access_log": "/dev/stdout",
+    "settings": {
+        "http": {
+            "header_read_timeout": 10,
+            "body_read_timeout": 10,
+            "send_timeout": 10,
+            "idle_timeout": 120,
+            "max_body_size": 6291456
+        }
+    },
+    "listeners": {
+        "*:8000": {
+            "pass": "applications/main"
+        }
+    },
+    "applications": {
+        "main": {
+            "type": "php",
+            "root": "/app",
+            "script": "index.php",
+            "options": {
+                "file": "/app/php.ini"
+            },
+            "processes": {
+                "max": 100,
+                "spare": 0,
+                "idle_timeout": 20
+            },
+            "limits": {
+                "timeout": 10
+            }
+        }
+    }
+}
